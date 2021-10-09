@@ -10,7 +10,11 @@ class _TaskTileState extends State<TaskTile> {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      title: Text('Complete Todey app'),
+      title: Text(
+        'Complete Todey app',
+        style: TextStyle(
+            decoration: isChecked ? TextDecoration.lineThrough : null),
+      ),
       trailing: TaskCheckBox(isChecked),
     );
   }
