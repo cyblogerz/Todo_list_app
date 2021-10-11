@@ -2,9 +2,15 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:todo_list/widgets/tasks_list.dart';
+
+String? newtasktitle;
 
 class AddTaskScreen extends StatelessWidget {
   // const AddTaskScreen({ Key? key }) : super(key: key);
+  final Function addTaskCallback;
+
+  AddTaskScreen({required this.addTaskCallback});
 
   @override
   Widget build(BuildContext context) {
@@ -23,6 +29,9 @@ class AddTaskScreen extends StatelessWidget {
             Text('Add Task',
                 style: TextStyle(color: Colors.blue, fontSize: 30)),
             TextField(
+              onChanged: (newVal) {
+                newtasktitle = newVal;
+              },
               autofocus: true,
               textAlign: TextAlign.center,
             ),
@@ -32,7 +41,11 @@ class AddTaskScreen extends StatelessWidget {
             SizedBox(
               width: double.infinity,
               // height: 100,
-              child: ElevatedButton(onPressed: () {}, child: Text('ADD')),
+              child: ElevatedButton(
+                  onPressed: () {
+                    addTaskCallback(newtasktitle);
+                  },
+                  child: Text('ADD')),
             )
           ],
         ),
