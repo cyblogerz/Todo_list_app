@@ -2,13 +2,24 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:todo_list/models/tasks.dart';
 import 'package:todo_list/widgets/tasks_list.dart';
 import 'add_task_screen.dart';
+
 // import '/widgets/tasks_list.dart';
 // import 'package:todo_list/widgets/tasks_tile.dart';
 
-class TodoListScreen extends StatelessWidget {
-  // const TodoListScreen({Key? key}) : super(key: key);
+class TodoListScreen extends StatefulWidget {
+  @override
+  State<TodoListScreen> createState() => _TodoListScreenState();
+}
+
+class _TodoListScreenState extends State<TodoListScreen> {
+  List<Task> tasks = [
+    Task(name: 'Complete this today'),
+    Task(name: 'Study dp'),
+    Task(name: 'refactor digicupid')
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +36,12 @@ class TodoListScreen extends StatelessWidget {
                   child: Container(
                       padding: EdgeInsets.only(
                           bottom: MediaQuery.of(context).viewInsets.bottom),
-                      child: AddTaskScreen())));
+                      child: AddTaskScreen(addTaskCallback: (newtasktitle) {
+                        setState(() {
+                          tasks.add(Task(name: newtasktitle));
+                          Navigator.pop(context);
+                        });
+                      }))));
         },
       ),
       backgroundColor: Colors.blue,
@@ -82,7 +98,9 @@ class TodoListScreen extends StatelessWidget {
                       topRight: Radius.circular(32))),
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                child: TasksList(),
+                child: TasksList(
+                  tasks: tasks,
+                ),
               ),
             ),
           ),
